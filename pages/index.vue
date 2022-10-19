@@ -34,6 +34,9 @@ const changeVolume = (e) => {
 
 const changeSeek = () => {
     seek.value.value = Math.floor(audio.value.currentTime)
+    if (audio.value.currentTime == audio.value.duration) {
+        activeSongIndex.value.index = (activeSongIndex.value.index + 1) % 10;
+    }
 }
 
 const changeTimeAudio = () => {

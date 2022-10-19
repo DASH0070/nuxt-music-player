@@ -52,6 +52,10 @@ const setSong = (index) => {
     props.activeSongIndex.index = index;
 }
 
-const selected = ref(songList[0])
+watch(props.activeSongIndex, () => {
+    selected.value = songList[props.activeSongIndex.index];
+})
+
+const selected = ref(songList[props.activeSongIndex.index]);
 </script>
   
