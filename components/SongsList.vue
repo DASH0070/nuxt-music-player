@@ -4,8 +4,8 @@
             <RadioGroup v-model="selected">
                 <RadioGroupLabel class="sr-only">Server size</RadioGroupLabel>
                 <div class="space-y-2">
-                    <RadioGroupOption @click="setSong(index)" as="template" v-for="(item, index) in songList" :key="index" :value="item"
-                        v-slot="{ active, checked }">
+                    <RadioGroupOption @click="setSong(index)" as="template" v-for="(item, index) in songList"
+                        :key="index" :value="item" v-slot="{ active, checked }">
                         <div :class="[
                           active
                             ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300'
@@ -34,6 +34,8 @@
                 </div>
             </RadioGroup>
         </div>
+        
+
     </div>
 </template>
   
@@ -44,9 +46,9 @@ import {
     RadioGroupLabel,
     RadioGroupOption,
 } from '@headlessui/vue';
-import {songList} from '../data/songList';
+import { songList } from '../data/songList';
 
-const props = defineProps<{activeSongIndex}>()
+const props = defineProps<{ activeSongIndex }>()
 
 const setSong = (index) => {
     props.activeSongIndex.index = index;
