@@ -7,7 +7,7 @@
         <input @change="changeTimeAudio" value="0" ref="seek" :max="audioDuration" type="range" class="w-96" step="1" />
         <p>{{(seek && audioDuration) ? Math.floor(seek.value) + ' / ' + Math.ceil(audioDuration) : '0 / 0'}}
         </p>
-        <SongsList :activeSrcIndex="activeSrcIndex"></SongsList>
+        <SongsList :activeSongIndex="activeSongIndex"></SongsList>
     </div>
 </template>
 
@@ -20,14 +20,14 @@ const audio = ref();
 const audioDuration = ref(0);   // for the duration of song
 const isAudioPlay = ref(false)    // to check state of song play/pause
 const seek = ref();
-const activeSrcIndex = ref({ index: 0 });
+const activeSongIndex = ref({ index: 0 });
 
 onMounted(() => {
     audio.value.src = '../assets/mp3/The Chemical Brothers - Galvanize.mp3';
 })
 
-watch(activeSrcIndex.value, () => {
-    setSong(activeSrcIndex.value.index);
+watch(activeSongIndex.value, () => {
+    setSong(activeSongIndex.value.index);
 })
 
 const changeVolume = (e) => {

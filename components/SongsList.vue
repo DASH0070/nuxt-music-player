@@ -46,10 +46,10 @@ import {
 } from '@headlessui/vue';
 import {songList} from '../data/songList';
 
-const props = defineProps<{activeSrcIndex}>()
+const props = defineProps<{activeSongIndex}>()
 
 const setSong = (index) => {
-    props.activeSrcIndex.index = index;
+    props.activeSongIndex.index = index;
 }
 
 const selected = ref(songList[0])
