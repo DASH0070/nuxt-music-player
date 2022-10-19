@@ -1,12 +1,10 @@
 <template>
     <div class="flex flex-col w-[50rem] mx-auto mt-40 justify-center items-center gap-4">
-        <audio @timeupdate="changeSeek" ref="audio"></audio>
+        <audio @timeupdate="changeSeek" ref="audio" preload="metadata"></audio>
         <button @click="music" class="w-20 h-8 bg-slate-700 text-slate-200">Play</button>
         <input value="100" class="self-end -translate-x-60 -translate-y-14 -rotate-90" @change="changeVolume"
             type="range" />
         <input @change="changeTimeAudio" value="0" ref="seek" :max="audioDuration" type="range" class="w-96" step="1" />
-        <p>{{(seek && audioDuration) ? Math.floor(seek.value) + ' / ' + Math.ceil(audioDuration) : '0 / 0'}}
-        </p>
         <SongsList :activeSongIndex="activeSongIndex"></SongsList>
     </div>
 </template>
@@ -44,18 +42,18 @@ const changeTimeAudio = () => {
 
 // Handle Pause/Play Button
 const music = (e) => {
+    e = e || 0;
     if (!audio.value.src) {
         alert('Select Song');
         return;
     }
     isAudioPlay.value = !isAudioPlay.value
-    if (isAudioPlay.value) {
+    if (e && isAudioPlay.value) {
         e.target.innerText = 'Pause';
-        // audio.value.currentTime = audioTime.value;
         audioDuration.value = audio.value.duration;
         audio.value.play();
     }
-    else if (!isAudioPlay.value) {
+    else if (e && !isAudioPlay.value) {
         e.target.innerText = 'Play';
         audio.value.pause();
     }
@@ -67,7 +65,9 @@ const setSong = (index: number) => {
         audio.value.pause();
         audio.value.src = '../assets/mp3/' + songList[index];
         audio.value.play();
-
+        audio.value.onloadedmetadata = function () {
+            audioDuration.value = audio.value.duration;
+        }
     }
     else
         audio.value.src = '../assets/mp3/' + songList[index];
