@@ -17,7 +17,7 @@
                                     <div class="text-sm">
                                         <RadioGroupLabel as="p" :class="checked ? 'text-white' : 'text-gray-900'"
                                             class="font-medium">
-                                            {{ item }}
+                                            {{ item.track }}
                                         </RadioGroupLabel>
                                     </div>
                                 </div>
@@ -47,7 +47,7 @@ import {
 import { songList } from '../data/songList';
 
 const props = defineProps<{ activeSongIndex }>();   // which song is in active state
-const emit = defineEmits(['setSong'])   
+const emit = defineEmits(['setSong'])
 
 const setSong = (index) => {    // change the song active state
     emit('setSong', index)

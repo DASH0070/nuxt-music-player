@@ -35,12 +35,13 @@
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z" />
                 </svg>
-
             </button>
         </div>
 
         <input value="100" class="translate-y-4 w-36" @change="changeVolume" type="range" />
         <SongsList :activeSongIndex="activeSongIndex" @set-song="(index) => { activeSongIndex = index }"></SongsList>
+        <NuxtLink class="self-end -translate-y-10 underline underline-offset-2 text-3xl text-sky-900 rounded-full"
+            to="/credit">Credits to NCS</NuxtLink>
     </div>
 </template>
 
@@ -57,7 +58,7 @@ const activeSongIndex = ref(0);     // store which song is in active state
 const isSeekActive = ref(false);    // store if user changing seek
 
 onMounted(() => {   // set the initial source value of audio
-    audio.value.src = '../assets/mp3/' + songList[0];
+    audio.value.src = '../assets/mp3/' + songList[0].track + '.mp3';
     audio.value.onloadedmetadata = () => {
         audioDuration.value = audio.value.duration;
     }
@@ -102,14 +103,14 @@ const music = () => {
 const setSong = (index: number) => {
     if (isAudioPlay.value) {
         audio.value.pause();
-        audio.value.src = '../assets/mp3/' + songList[index];
+        audio.value.src = '../assets/mp3/' + songList[index].track + '.mp3';
         audio.value.play();
         audio.value.onloadedmetadata = () => {
             audioDuration.value = audio.value.duration;
         }
     }
     else
-        audio.value.src = '../assets/mp3/' + songList[index];
+        audio.value.src = '../assets/mp3/' + songList[index].track + '.mp3';
 }
 
 </script>
