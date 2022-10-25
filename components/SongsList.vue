@@ -34,8 +34,6 @@
                 </div>
             </RadioGroup>
         </div>
-
-
     </div>
 </template>
   
@@ -48,13 +46,13 @@ import {
 } from '@headlessui/vue';
 import { songList } from '../data/songList';
 
-const props = defineProps<{ activeSongIndex }>();
-const emit = defineEmits(['setSong'])
+const props = defineProps<{ activeSongIndex }>();   // which song is in active state
+const emit = defineEmits(['setSong'])   
 
-const setSong = (index) => {
+const setSong = (index) => {    // change the song active state
     emit('setSong', index)
 }
-const selected = ref(songList[props.activeSongIndex]);
-const selectedValue = computed(() => songList[props.activeSongIndex]);
-watch(selectedValue, () => selected.value = selectedValue.value)
+const selected = ref(songList[props.activeSongIndex]);      // which box is currently selected
+const selectedValue = computed(() => songList[props.activeSongIndex]);      // which song is active
+watch(selectedValue, () => selected.value = selectedValue.value)        // set currently selected box if song switch
 </script>
