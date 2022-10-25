@@ -1,8 +1,10 @@
 <template>
     <div class="flex flex-col w-[50rem] mx-auto mt-40 justify-center items-center gap-4">
+        <!-- SEEK INPUT  -->
         <input @change="changeTimeAudio" value="0" ref="seek" @mouseup="isSeekActive = false"
             @mousedown="isSeekActive = true" :max="audioDuration" type="range" class="-translate-y-4 w-[60rem]"
             step="2" />
+        <!-- AUDIO OBJECT  -->
         <audio @timeupdate="changeSeek" ref="audio" preload="metadata"></audio>
         <div class="flex gap-12">
             <button
@@ -37,8 +39,9 @@
                 </svg>
             </button>
         </div>
-
+        <!-- VOLUME INPUT  -->
         <input value="100" class="translate-y-4 w-36" @change="changeVolume" type="range" />
+        <!-- SONGS LIST  -->
         <SongsList :activeSongIndex="activeSongIndex" @set-song="(index) => { activeSongIndex = index }"></SongsList>
         <NuxtLink class="self-end -translate-y-10 underline underline-offset-2 text-3xl text-sky-900 rounded-full"
             to="/credit">Credits to NCS</NuxtLink>
@@ -71,10 +74,10 @@ const changeVolume = (e) => {   // change volume
 }
 
 const changeSeek = () => {  // change value seek automatically while song playing
-    if (!isSeekActive.value) {
-        seek.value.value = Math.floor(audio.value.currentTime)
+    if (!isSeekActive.value && seek.value) {
+        seek.value.value = audio.value ? Math.floor(audio.value.currentTime) : 0;
     }
-    if (audio.value.currentTime == audio.value.duration) {
+    if (audio.value?.currentTime == audio.value?.duration) {
         activeSongIndex.value = (activeSongIndex.value + 1) % songList.length;
     }
 }
