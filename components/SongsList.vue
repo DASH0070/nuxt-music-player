@@ -7,10 +7,10 @@
                     <RadioGroupOption @click="setSong(index)" as="template" v-for="(item, index) in songList"
                         :key="index" :value="item" v-slot="{ active, checked }">
                         <div :class="[
-                          active
-                            ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300'
-                            : '',
-                          checked ? 'bg-sky-900 bg-opacity-75 text-white ' : 'bg-white ',
+                            active
+                                ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300'
+                                : '',
+                            checked ? 'bg-sky-900 bg-opacity-75 text-white ' : 'bg-white ',
                         ]" class="relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none">
                             <div class="flex w-full items-center justify-between">
                                 <div class="flex items-center">
@@ -34,7 +34,7 @@
                 </div>
             </RadioGroup>
         </div>
-        
+
 
     </div>
 </template>
@@ -48,16 +48,13 @@ import {
 } from '@headlessui/vue';
 import { songList } from '../data/songList';
 
-const props = defineProps<{ activeSongIndex }>()
+const props = defineProps<{ activeSongIndex }>();
+const emit = defineEmits(['setSong'])
 
 const setSong = (index) => {
-    props.activeSongIndex.index = index;
+    emit('setSong', index)
 }
-
-watch(props.activeSongIndex, () => {
-    selected.value = songList[props.activeSongIndex.index];
-})
-
-const selected = ref(songList[props.activeSongIndex.index]);
+const selected = ref(songList[props.activeSongIndex]);
+const selectedValue = computed(() => songList[props.activeSongIndex]);
+watch(selectedValue, () => selected.value = selectedValue.value)
 </script>
-  

@@ -1,6 +1,4 @@
 export const songList = [
-    'The Chemical Brothers - Galvanize.mp3',
-    'Avicii - The Nights.mp3',
     'Cartoon - On & On.mp3',
     'DEAF KEV - Invincible.mp3',
     'Different Heaven & EH!DE - My Heart.mp3',
